@@ -26,7 +26,7 @@ class PostRepository {
   }
 
   Future<String> getContent(String url) async {
-    String s = '';
+    //String s = '';
     Dia d;
     try {
       Response response = await Dio().get(url);
@@ -35,7 +35,7 @@ class PostRepository {
       List<Element> dias = document.getElementsByClassName('descriptionText');
       for (var i = 0; i < els.length; i++) {
         //if(dias[i].innerHtml.isNotEmpty)
-          d = new Dia(title: dias[i].innerHtml, conteudo: els[i].innerHtml);
+        d = new Dia(title: dias[i].innerHtml, conteudo: els[i].innerHtml);
       }
       /*els.forEach((element) {
         s += element.innerHtml;
