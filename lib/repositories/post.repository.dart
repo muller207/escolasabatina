@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:escolasabatina/models/dia.model.dart';
 import 'package:escolasabatina/models/licao.model.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
@@ -26,14 +27,20 @@ class PostRepository {
 
   Future<String> getContent(String url) async {
     String s = '';
+    Dia d;
     try {
       Response response = await Dio().get(url);
       var document = parse(response.data);
       List<Element> els = document.getElementsByClassName('conteudoLicaoDia');
-      els.forEach((element) {
+      List<Element> dias = document.getElementsByClassName('descriptionText');
+      for (var i = 0; i < els.length; i++) {
+        //if(dias[i].innerHtml.isNotEmpty)
+          d = new Dia(title: dias[i].innerHtml, conteudo: els[i].innerHtml);
+      }
+      /*els.forEach((element) {
         s += element.innerHtml;
-      });
-      return s;
+      });*/
+      return d.conteudo;
     } catch (e) {
       print(e);
       return null;
